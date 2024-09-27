@@ -21,7 +21,7 @@ public class PropiedadService {
     public List<PropiedadORM> filtrarPropiedadesPorCiudad(String ciudad) {
         List<PropiedadORM> propiedades = propiedadJPA.findAllByCiudadEquals(ciudad);
         if (propiedades.isEmpty()) {
-            throw new RuntimeException("No se encontró ninguna propiedad en la ciudad: " + ciudad);
+            throw new IllegalArgumentException("No se encontró ninguna propiedad en la ciudad: " + ciudad);
         }
         return propiedades;
     }
@@ -29,7 +29,7 @@ public class PropiedadService {
     public List<PropiedadORM> filtrarPropiedadesPorTipo(String tipoPropiedad) {
         List<PropiedadORM> propiedades = propiedadJPA.findAllBytipoPropiedadEquals(tipoPropiedad);
         if (propiedades.isEmpty()) {
-            throw new RuntimeException("No se encontró ninguna propiedad de tipo: " + tipoPropiedad);
+            throw new IllegalArgumentException("No se encontró ninguna propiedad de tipo: " + tipoPropiedad);
         }
         return propiedades;
     }
@@ -51,27 +51,12 @@ public class PropiedadService {
     public List<PropiedadORM> obtenerPropiedadPorNombre(String nombre) {
         List<PropiedadORM> propiedades = propiedadJPA.findAllByNombreEquals(nombre);
         if (propiedades.isEmpty()) {
-            throw new RuntimeException("No se encontró ninguna propiedad con el nombre: " + nombre);
+            throw new IllegalArgumentException("No se encontró ninguna propiedad con el nombre: " + nombre);
         }
         return propiedades;
     }
 
     public String guardarPropiedad(PropiedadDTO propiedadDTO) {
-        if (propiedadDTO.nombre() == null || propiedadDTO.nombre().isEmpty()) {
-            throw new IllegalArgumentException("El nombre de la propiedad es obligatorio.");
-        }
-        if (propiedadDTO.tipoOferta() == null || propiedadDTO.tipoOferta().isEmpty()) {
-            throw new IllegalArgumentException("El tipo de oferta es obligatorio.");
-        }
-        if (propiedadDTO.ciudad() == null || propiedadDTO.ciudad().isEmpty()) {
-            throw new IllegalArgumentException("La ciudad es obligatoria.");
-        }
-        if (propiedadDTO.direccion() == null || propiedadDTO.direccion().isEmpty()) {
-            throw new IllegalArgumentException("La dirección es obligatoria.");
-        }
-        if (propiedadDTO.tipoPropiedad() == null || propiedadDTO.tipoPropiedad().isEmpty()) {
-            throw new IllegalArgumentException("El tipo de propiedad es obligatorio.");
-        }
         if (propiedadDTO.tamano() <= 0.0f) {
             throw new IllegalArgumentException("El tamaño de la propiedad debe ser mayor que 0.");
         }
