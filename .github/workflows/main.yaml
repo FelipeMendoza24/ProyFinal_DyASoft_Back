@@ -36,3 +36,12 @@ jobs:
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USUARIO }}
           password: ${{ secrets.DOCKER_CLAVE }}
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          image-ref: 'docker.io/felipemendoza24/inmobiliario:latest'
+          format: 'table'
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
