@@ -22,3 +22,12 @@ jobs:
         run: chmod +x ./gradlew
       - name: Buildiear el proyecto
         run: ./gradlew build
+      - uses: mr-smithers-excellent/docker-build-push@v6
+        name: Crear y subir la imagen
+        with:
+          image: felipemendoza24/inmobiliario
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKER_USUARIO }}
+          password: ${{ secrets.DOCKER_CLAVE }}
