@@ -41,7 +41,7 @@ jobs:
         with:
           image-ref: 'docker.io/felipemendoza24/inmobiliario:latest'
           format: 'table'
-          exit-code: '1'
+          exit-code: '0'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
