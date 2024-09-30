@@ -11,6 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         name: Descargando el repo
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v2.1.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
+        env:
+          SONAR_TOKEN: sqa_d15f99aa1eae6458e608523f1df7a381abf7d21b
+          SONAR_HOST_URL: https://nearby-magical-gopher.ngrok-free.app
       - name: Instalar Java
         uses: actions/setup-java@v4
         with:
@@ -22,11 +27,6 @@ jobs:
         run: chmod +x ./gradlew
       - name: Buildiear el proyecto
         run: ./gradlew build
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@v2.1.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
-        env:
-          SONAR_TOKEN: sqa_882023c91912abe68b7e8150fbd8bfee2cfb745c
-          SONAR_HOST_URL: https://monarch-firm-smoothly.ngrok-free.app
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
