@@ -13,6 +13,8 @@ import java.util.List;
 public class PropiedadController {
 
     private final PropiedadService propiedadService;
+    private MicroAFeign feignA;
+
 
     //GET Read, POST Create, PUT Update, DELETE Delete -> CRUD
     @GetMapping(path = "/propiedades/todos")
@@ -55,6 +57,9 @@ public class PropiedadController {
 
     @PutMapping(path = "/actualizarPropiedadEstado/{id}")
     public String actualizarEstadoPropiedad(@PathVariable Long id, @RequestParam Boolean estado) {
+        String respuesta = feignA.obtenerRespuestaA(id,estado);
+        System.out.println(respuesta);
         return propiedadService.actualizarEstadoPropiedad(id, estado);
     }
+
 }
